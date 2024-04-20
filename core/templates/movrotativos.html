@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimento Rotativo</title>
+</head>
+<body>
+    <h1>Movimento Rotativo</h1>
+
+    <ul>
+        {% for mov in mov_rot %}
+        
+        <li>
+            <li>
+                <a href="{% url 'movrotativo_update' mov.id %}">{{ mov.checkin }} - {{ mov.veiculo.placa}}</a>
+            </li>    
+        </li>
+    
+        {%endfor%}
+
+    </ul>
+
+    <form action="{% url 'movrotativos_novo' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button>Cadastrar</button>
+    </form>
+</body>
+</html>

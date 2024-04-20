@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Pessoa</title>
+</head>
+<body>
+
+    <h2>Updating Movimento Mensalista: {{ mov_mensal }}</h2>
+
+    <form action="{% url 'movmensalista_update' mov_mensal.id %}" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button>Cadastrar</button>
+    </form>
+
+    <a href="{% url 'movmensalista_delete' mov_mensal.id %}">Deletar</a>
+</body>
+</html>
