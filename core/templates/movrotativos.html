@@ -1,31 +1,85 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movimento Rotativo</title>
-</head>
-<body>
-    <h1>Movimento Rotativo</h1>
+{% extends 'base.html'%}
+{% load bootstrap %}
 
-    <ul>
-        {% for mov in mov_rot %}
+{% block menu %}
+
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'index' %}">Home</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"
+            active>Serviços</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'pessoa' %}">Pessoas</a>
+            <a class="dropdown-item" href="{% url 'veiculo' %}">Veículos</a>
+            <a class="dropdown-item" href="{% url 'mov_rot' %}">Rotativo</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'mensalista' %}">Mensalistas</a>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+    </li>
+
+</ul>
+
+{% endblock %}
+
+{% block main %}
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <h1>Movimento Rotativo</h1>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <form action="{% url 'movrotativos_novo' %}" method="post">
+                {% csrf_token %}
+                {{ form|bootstrap }}
         
-        <li>
-            <li>
-                <a href="{% url 'movrotativo_update' mov.id %}">{{ mov.checkin }} - {{ mov.veiculo.placa}}</a>
-            </li>    
-        </li>
+                <button class="btn btn-primary">Cadastrar</button>
+                
+            </form>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">CHECKIN</th>
+                        <th scope="col">CHECKOUT</th>
+                        <th scope="col">VALOR HORA</th>
+                        <th scope="col">VEICULO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movrot in mov_rot %}
+                    <tr>
+                        <td scope="row"></td>
+                        <td><a href="{% url 'movrotativo_update' movrot.id %}">{{ movrot.id }}</a></td>
+                        <td>{{ movrot.checkin }}</td>
+                        <td>{{ movrot.checkout }}</td>
+                        <td>{{ movrot.valor_hora }}</td>
+                        <td>{{ movrot.veiculo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
     
-        {%endfor%}
+            </table>
 
-    </ul>
+        </div>
 
-    <form action="{% url 'movrotativos_novo' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    </div>
 
-        <button>Cadastrar</button>
-    </form>
-</body>
-</html>
+{% endblock %}

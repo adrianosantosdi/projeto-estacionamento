@@ -1,30 +1,93 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Veiculos</title>
-</head>
-<body>
-    <h1>Veiculos</h1>
+{% extends 'base.html'%}
+{% load bootstrap %}
 
-    <ul>
-        {% for veiculo in veiculos %}
+
+{% block menu %}
+
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'index' %}">Home</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"
+            active>Serviços</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'pessoa' %}">Pessoas</a>
+            <a class="dropdown-item" href="{% url 'veiculo' %}">Veículos</a>
+            <a class="dropdown-item" href="{% url 'mov_rot' %}">Rotativo</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'mensalista' %}">Mensalistas</a>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+    </li>
+
+</ul>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1>Veiculos</h1>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <form action="{% url 'veiculo_novo' %}" method="post">
+                {% csrf_token %}
+                {{ form|bootstrap }}
         
-        <li>
-            <a href="{% url 'veiculo_update' veiculo.id %}">{{ veiculo.placa }}</a>
-        </li>
+                <button class="btn btn-primary">Cadastrar</button>
+                
+            </form>
+
+        </div>
+
+        <div class="col-sm-6">
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">MARCA</th>
+                        <th scope="col">PLACA</th>
+                        <th scope="col">PROPRIETÁRIO</th>
+                        <th scope="col">COR</th>
+                        <th scope="col">OBSERVAÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for veiculo in veiculos%}
+                    <tr>
+                        <td scope="row"></td>
+                        <td><a href="{% url 'veiculo_update' veiculo.id %}">{{ veiculo.id }}</a></td>
+                        <td>{{ veiculo.marca }}</td>
+                        <td>{{ veiculo.placa }}</td>
+                        <td>{{ veiculo.proprietario }}</td>
+                        <td>{{ veiculo.cor }}</td>
+                        <td>{{ veiculo.observacoes }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
     
-        {%endfor%}
+            </table>
 
-    </ul>
+        </div>
+    </div>
 
-    <form action="{% url 'veiculo_novo' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <button>Cadastrar</button>
-    </form>
 
-</body>
-</html>
+
+   
+
+{% endblock%}

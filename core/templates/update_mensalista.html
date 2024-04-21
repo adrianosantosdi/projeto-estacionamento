@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Pessoa</title>
-</head>
-<body>
+{% extends 'base.html'%}
+{% load bootstrap %}
 
-    <h2>Updating Pessoa: {{ mensalista }}</h2>
+{% block main %}
 
-    <form action="{% url 'mensalista_update' mensalista.id %}" method="post">
-        {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
 
-        {{ form.as_p }}
+            <h2>Updating Mensalista: {{ mensalista }}</h2>
+        
+            <form action="{% url 'mensalista_update' mensalista.id %}" method="post">
+                {% csrf_token %}
+        
+                {{ form.as_p }}
+        
+                <button class="btn btn-primary">Cadastrar</button>
+        
+            </form>
+        
+            <a class="btn btn-danger mt-2" href="{% url 'mensalista_delete' mensalista.id %}">Deletar</a>
 
-        <button>Cadastrar</button>
-    </form>
+        </div>
 
-    <a href="{% url 'mensalista_delete' mensalista.id %}">Deletar</a>
-</body>
-</html>
+    </div>
+
+{% endblock %}    

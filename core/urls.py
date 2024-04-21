@@ -27,4 +27,5 @@ urlpatterns = [
     path('mov-mensal-novo/', mov_mensalista_novo, name='mov_mensalista_novo'),
     path('mov-mensal-update/<int:id>', movmensalista_update, name='movmensalista_update'),
     path('mov-mensal-delete/<int:id>', movmensalista_delete, name='movmensalista_delete'),
+    
 ]
